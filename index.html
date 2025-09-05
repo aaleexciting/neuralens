@@ -313,6 +313,7 @@
                 </div>
             </div>
             <div class="mt-8 pt-8 border-t border-gray-800 text-center">
+                 <p class="text-xs text-gray-600 mb-2">Session ID: <span id="session-id">loading...</span></p>
                  <p>&copy; <span id="copyright-year"></span> Ardan Ridho. All Rights Reserved.</p>
             </div>
         </footer>
@@ -346,7 +347,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -422,19 +423,33 @@
             displayError("Application is not configured correctly. Please contact support.");
         }
 
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                userId = user.uid;
-                listenToHistory();
-            } else {
-                try {
-                    await signInAnonymously(auth);
-                } catch (error) {
-                    console.error("Error during sign-in:", error);
-                    displayError("Could not start a session. Please check your connection or browser settings.");
-                }
-            }
-        });
+        // Set persistence to localStorage, which is more robust across browsers with strict privacy settings
+        setPersistence(auth, browserLocalPersistence)
+            .then(() => {
+                // After setting persistence, check the auth state
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        const sessionIdEl = document.getElementById('session-id');
+                        if (sessionIdEl) {
+                            sessionIdEl.textContent = userId;
+                        }
+                        listenToHistory();
+                    } else {
+                        try {
+                            // If no user, sign in. The persistence is already set.
+                            await signInAnonymously(auth);
+                        } catch (error) {
+                            console.error("Error during sign-in:", error);
+                            displayError("Could not start a session. Please check your connection or browser settings.");
+                        }
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error("Error setting auth persistence:", error);
+                displayError("Could not save your session. Your browser's privacy settings (or extensions) might be blocking it, which will prevent history from being saved.");
+            });
 
         function initializeAppUI() {
             dom.copyrightYear.textContent = new Date().getFullYear();
