@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neuralens AI Detector</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23A78BFA;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236366F1;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23grad)' d='M50,10 C27.9,10 10,27.9 10,50 C10,72.1 27.9,90 50,90 C72.1,90 90,72.1 90,50 C90,27.9 72.1,10 50,10 Z M50,75 C36.2,75 25,63.8 25,50 C25,36.2 36.2,25 50,25 C63.8,25 75,36.2 75,50 C75,63.8 63.8,75 50,75 Z' /%3E%3Ccircle fill='white' cx='50' cy='50' r='15' /%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -225,17 +226,12 @@
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-500 max-w-2xl mx-auto">Detect Manipulation, Deepfakes, Fraud, and More</h2>
                 <p class="mt-2 text-md sm:text-lg text-gray-400 max-w-3xl mx-auto">Our technology helps identify a wide range of malicious AI-generated content.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Use Case Cards -->
                 <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
                     <img src="https://sightengine.com/assets/img/genai/mis-disinformation.jpg" alt="Misinformation" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
                     <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">MIS- & DISINFORMATION</span>
                     <p class="text-sm text-gray-400 mt-2">Spreading AI-generated misinformation and deepfakes in media.</p>
-                </div>
-                <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
-                    <img src="https://sightengine.com/assets/img/genai/fake-insurance-claim.jpg" alt="Insurance Claim" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
-                    <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">INSURANCE CLAIMS</span>
-                    <p class="text-sm text-gray-400 mt-2">Creating fake insurance claims with faked images of incidents at home.</p>
                 </div>
                 <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
                     <img src="https://sightengine.com/assets/img/genai/fake-profile.jpg" alt="Fake Profile" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
@@ -247,15 +243,30 @@
                     <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">FAKE IDS</span>
                     <p class="text-sm text-gray-400 mt-2">By-passing KYC checks with fake or spoofed identity documents and selfies.</p>
                 </div>
-                <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
-                    <img src="https://sightengine.com/assets/img/genai/marketplace-spam.jpg" alt="Marketplace Spam" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
-                    <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">MARKETPLACE SPAM</span>
-                    <p class="text-sm text-gray-400 mt-2">Spamming and flooding marketplaces with auto-generated variations of images.</p>
-                </div>
-                <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
+                 <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
                     <img src="https://sightengine.com/assets/img/genai/impersonation.jpg" alt="Impersonation" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
                     <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">IMPERSONATION</span>
-                    <p class="text-sm text-gray-400 mt-2">Misleading users by representing someone without their consent.</p>
+                    <p class="text-sm text-gray-400 mt-2">Misleading viewers by representing someone without their consent.</p>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
+                    <img src="https://sightengine.com/assets/img/genai/fake-photo-evidence.jpg" alt="Fake Photo Evidence" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">FAKE PHOTO EVIDENCE</span>
+                    <p class="text-sm text-gray-400 mt-2">Generating fraudulent accident reports with AI-generated images.</p>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
+                    <img src="https://sightengine.com/assets/img/genai/nudification.jpg" alt="Nudification" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">NUDIFICATION</span>
+                    <p class="text-sm text-gray-400 mt-2">Generating abusive images to harm users through impersonation or nudification.</p>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
+                    <img src="https://sightengine.com/assets/img/genai/fake-news.jpg" alt="Fake News" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">FAKE NEWS</span>
+                    <p class="text-sm text-gray-400 mt-2">Spreading fake news to harm democratic processes.</p>
+                </div>
+                 <div class="group relative overflow-hidden rounded-xl border border-gray-700 bg-gray-900/50 p-5 shadow-lg transition-all duration-300 hover:border-indigo-500/50 hover:shadow-indigo-500/10">
+                    <img src="https://sightengine.com/assets/img/genai/fake-insurance-claim.jpg" alt="Insurance Claim" class="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-300 group-hover:scale-105">
+                    <span class="absolute top-3 left-3 bg-gray-900/80 text-white text-xs font-bold px-2 py-1 rounded-full border border-gray-600">INSURANCE CLAIMS</span>
+                    <p class="text-sm text-gray-400 mt-2">Creating fake insurance claims with faked images of incidents at home.</p>
                 </div>
             </div>
         </section>
