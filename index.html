@@ -409,11 +409,14 @@
             copyrightYear: document.getElementById('copyright-year'),
             cookieBanner: document.getElementById('cookie-banner'),
             acceptCookiesBtn: document.getElementById('accept-cookies'),
+            sessionId: document.getElementById('session-id'),
         };
 
         let lastResult = { verdict: '', probability: 0 };
 
         let app, db, auth, userId;
+        let authReady = false;
+
         try {
             app = initializeApp(firebaseConfig);
             db = getFirestore(app);
@@ -423,21 +426,39 @@
             displayError("Application is not configured correctly. Please contact support.");
         }
 
+        // Timeout to detect if auth is being blocked
+        setTimeout(() => {
+            if (!authReady) {
+                console.warn("Firebase Auth is taking a long time to initialize. It's likely being blocked.");
+                dom.sessionId.textContent = 'Blocked';
+                hide(dom.uploadContent);
+                displayError(
+                    "Could not create a session.\n\n" +
+                    "This is usually caused by strict ad-blockers, network filters, or privacy-focused browsers (like Brave or Firefox with strict settings) that block connections to Google's services.\n\n" +
+                    "To save your analysis history, please try:\n" +
+                    "• Disabling your ad-blocker for this site.\n" +
+                    "• Whitelisting this domain.\n" +
+                    "• Using a different browser or an incognito window."
+                );
+                // Also hide history section if it's blocked
+                const historyContainer = document.getElementById('history-container');
+                if (historyContainer) {
+                   hide(historyContainer);
+                }
+            }
+        }, 5000);
+
         // Set persistence to localStorage, which is more robust across browsers with strict privacy settings
         setPersistence(auth, browserLocalPersistence)
             .then(() => {
-                // After setting persistence, check the auth state
                 onAuthStateChanged(auth, async (user) => {
+                    authReady = true; // Mark auth as ready
                     if (user) {
                         userId = user.uid;
-                        const sessionIdEl = document.getElementById('session-id');
-                        if (sessionIdEl) {
-                            sessionIdEl.textContent = userId;
-                        }
+                        dom.sessionId.textContent = userId;
                         listenToHistory();
                     } else {
                         try {
-                            // If no user, sign in. The persistence is already set.
                             await signInAnonymously(auth);
                         } catch (error) {
                             console.error("Error during sign-in:", error);
@@ -447,8 +468,10 @@
                 });
             })
             .catch((error) => {
+                authReady = true; // Mark as ready to prevent timeout error
                 console.error("Error setting auth persistence:", error);
-                displayError("Could not save your session. Your browser's privacy settings (or extensions) might be blocking it, which will prevent history from being saved.");
+                dom.sessionId.textContent = 'Error';
+                displayError("Could not initialize session. Your browser might be blocking necessary features like Local Storage.");
             });
 
         function initializeAppUI() {
@@ -476,11 +499,12 @@
         }
 
         function displayError(message) {
-            show(dom.resultsContent);
             hideLoader();
-            dom.errorMessage.textContent = message;
+            show(dom.resultsContent);
+            dom.errorMessage.innerHTML = message.replace(/\n/g, '<br>'); // Use innerHTML to render line breaks
             show(dom.errorMessage);
             hide(dom.analysisResult);
+            hide(dom.uploadContent); // Ensure upload form is hidden on critical errors
             dom.analysisResult.classList.remove('visible');
         }
 
@@ -502,6 +526,7 @@
                 handleUrl(url);
             } else {
                  hide(dom.uploadContent);
+                 show(dom.resultsContent); // Show results container to display the error
                  displayError("Please enter a valid image URL.");
             }
         });
