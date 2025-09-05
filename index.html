@@ -29,7 +29,7 @@
         #interaction-card {
             box-shadow: 0 0 80px var(--glow-color-purple);
             transition: box-shadow 500ms ease-in-out, min-height 500ms ease-in-out;
-            min-height: 500px; /* Give a base height for smooth transition */
+            min-height: 500px;
         }
 
         .loader {
@@ -92,7 +92,6 @@
             animation: fadeInUp 0.6s ease-out forwards;
         }
 
-        /* Staggered animation for results */
         #analysis-result.visible > *:nth-child(1) { animation-delay: 0.1s; }
         #analysis-result.visible > *:nth-child(2) { animation-delay: 0.2s; }
         #analysis-result.visible > *:nth-child(3) { animation-delay: 0.3s; }
@@ -103,7 +102,6 @@
             transition: opacity 150ms ease-in-out;
         }
 
-        /* Active state for buttons */
         button:active, .card-active:active {
             transform: scale(0.98);
             transition: transform 0.1s;
@@ -574,7 +572,6 @@
                     payload = { imageData };
                     logData = { source: 'upload', fileName: file.name, previewUrl: '' };
                     
-                    // Only store thumbnail if it's small enough for Firestore
                     if (imageData.length < 200 * 1024) { 
                         logData.previewUrl = imageData;
                     }
@@ -597,7 +594,7 @@
         async function callNetlifyFunction(payload, previewUrl, logData) {
             const functionUrl = '/.netlify/functions/analyze';
             
-            dom.previewImage.src = previewUrl; // Set preview image immediately
+            dom.previewImage.src = previewUrl;
 
             try {
                 const response = await fetch(functionUrl, {
@@ -679,7 +676,7 @@
         }
 
         function renderGeneratorDetails(title, data, container) {
-            container.innerHTML = ''; // Clear previous results
+            container.innerHTML = '';
             if (!data || Object.keys(data).length === 0) return;
 
             const titleEl = document.createElement('h4');
@@ -694,7 +691,7 @@
 
             for (const [key, value] of sortedEntries) {
                 const percentage = Math.round(value * 100);
-                if (percentage < 1) continue; // Don't show negligible results
+                if (percentage < 1) continue;
                 const name = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                 
                 const itemEl = document.createElement('div');
@@ -794,7 +791,6 @@
             });
         }
 
-        // Initialize the app once the DOM is loaded
         document.addEventListener('DOMContentLoaded', initializeAppUI);
     </script>
 </body>
